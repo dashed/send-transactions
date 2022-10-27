@@ -21,6 +21,15 @@ fn main() {
         //     println!("loop: {}", x);
         // }
         generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
+        generate_transactions(x);
     });
 }
 
@@ -39,7 +48,7 @@ fn generate_transactions(x: i64) {
 
     main_span1();
 
-    thread::sleep(Duration::from_millis(100));
+    thread::sleep(Duration::from_millis(10));
 
     transaction.finish();
     sentry::configure_scope(|scope| scope.set_span(None));
@@ -47,7 +56,7 @@ fn generate_transactions(x: i64) {
 
 fn main_span1() {
     wrap_in_span("span1", "", || {
-        thread::sleep(Duration::from_millis(50));
+        thread::sleep(Duration::from_millis(5));
 
         let transaction_ctx = sentry::TransactionContext::continue_from_span(
             "background transaction",
@@ -58,14 +67,14 @@ fn main_span1() {
             let transaction = sentry::start_transaction(transaction_ctx);
             sentry::configure_scope(|scope| scope.set_span(Some(transaction.clone().into())));
 
-            thread::sleep(Duration::from_millis(50));
+            thread::sleep(Duration::from_millis(5));
 
             thread_span1();
 
             transaction.finish();
             sentry::configure_scope(|scope| scope.set_span(None));
         });
-        thread::sleep(Duration::from_millis(100));
+        thread::sleep(Duration::from_millis(10));
 
         main_span2()
     });
@@ -73,7 +82,7 @@ fn main_span1() {
 
 fn thread_span1() {
     wrap_in_span("span1", "", || {
-        thread::sleep(Duration::from_millis(200));
+        thread::sleep(Duration::from_millis(20));
     })
 }
 
@@ -83,7 +92,7 @@ fn main_span2() {
             "A message that should have a trace context",
             sentry::Level::Info,
         );
-        thread::sleep(Duration::from_millis(200));
+        thread::sleep(Duration::from_millis(20));
     })
 }
 
