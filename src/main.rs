@@ -7,7 +7,8 @@ use sentry::protocol::Request;
 // cargo run --example performance-demo
 fn main() {
     let _sentry = sentry::init((
-        "https://2f8e2ecf338b4d89ae932a124829eccb@o380891.ingest.sentry.io/5207397",
+        // "https://2f8e2ecf338b4d89ae932a124829eccb@o380891.ingest.sentry.io/5207397",
+        "https://b52904e72a72c0ed8d3996cafe40d4af@o4507289623330816.ingest.us.sentry.io/4507352301240320",
         sentry::ClientOptions {
             release: sentry::release_name!(),
             traces_sample_rate: 1.0,
